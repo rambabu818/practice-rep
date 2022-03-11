@@ -14,11 +14,7 @@ pipeline {
  
             }
         }
-        stage('Test code') {
-            steps {
-echo "source code test" 
-            }
-        }
+       
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
