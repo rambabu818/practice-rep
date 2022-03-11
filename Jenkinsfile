@@ -3,19 +3,25 @@ pipeline {
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
-        //
-//         environment {
-//   GITHU_REPO = "https://github.com/krishnabati/devopsmentor.git"
-// }
-
-        maven "M3"
+        maven "maven"
     }
 
     stages {
+        
+        stage('get source code') {
+            steps {
+                                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+ 
+            }
+        }
+        stage('Test code') {
+            steps {
+echo "source code test" 
+            }
+        }
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
 
                 // Run Maven on a Unix agent.
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
