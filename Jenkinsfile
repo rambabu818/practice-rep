@@ -1,31 +1,20 @@
 pipeline {
     agent any
-
-    tools {
-        // Install the Maven version configured as "M3" and add it to the path.
-        maven "maven"
-    }
-
     stages {
-        
-        stage('get source code') {
+        stage('SCM') {
             steps {
-                                git 'https://github.com/krishnabati/devopsmentor.git'
- 
+                git url: 'https://github.com/krishnabati/devopsmentor.git'
             }
         }
-       
-        stage('Build') {
+        stage('build && SonarQube analysis') {
             steps {
-                // Get some code from a GitHub repository
-
-                // Run Maven on a Unix agent.
+                withSonarQubeEnv('My SonarQube Server') {
+                    // Optionally use a Maven environment you've configured already
+                    withMaven(maven:'maven') {
                         sh 'mvn clean package sonar:sonar'
-
-               
+                    }
+                }
             }
-
-            
         }
         stage("Quality Gate") {
             steps {
