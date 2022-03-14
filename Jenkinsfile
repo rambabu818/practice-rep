@@ -1,39 +1,29 @@
-pipeline {
+pipeline{
     agent any
-
-    tools {
-        // Install the Maven version configured as "M3" and add it to the path.
-        maven "maven"
+    environment {
+        PATH = "$PATH:/opt/maven/bin"
     }
-
-    stages {
-        
-        stage('get source code') {
-            steps {
-                                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
- 
+    stages{
+       stage('GetCode'){
+            steps{
+                git 'https://github.com/krishnabati/devopsmentor.git'
             }
+         }        
+       stage('Build'){
+            steps{
+                sh 'mvn clean package'
+            }
+         }
+        stage('SonarQube analysis') {
+//    def scannerHome = tool 'SonarScanner 4.0';
+        steps{
+        withSonarQubeEnv('sonarqube') { 
+        // If you have configured more than one global server connection, you can specify its name
+//      sh "${scannerHome}/bin/sonar-scanner"
+        sh "mvn sonar:sonar"
+    }
+        }
         }
        
-        stage('Build') {
-            steps {
-                // Get some code from a GitHub repository
-
-                // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
-
-                // To run Maven on a Windows agent, use
-                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
-            }
-
-            post {
-                // If Maven was able to run the tests, even if some of the test
-                // failed, record the test results and archive the jar file.
-                success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'target/*.jar'
-                }
-            }
-        }
     }
 }
