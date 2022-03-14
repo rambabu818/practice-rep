@@ -1,18 +1,37 @@
-// pipeline {
+pipeline {
     agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "maven"
+    }
+
     stages {
-        stage('SCM') {
+        
+        stage('get source code') {
             steps {
-                git url: 'https://github.com/krishnabati/devopsmentor.git'
+                                git 'https://github.com/krishnabati/devopsmentor.git'
+ 
             }
         }
-        stage('build && SonarQube analysis') {
+       
+        stage('Build') {
             steps {
-                withSonarQubeEnv('My SonarQube Server') {
-                    // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'maven') {
+                // Get some code from a GitHub repository
+
+                // Run Maven on a Unix agent.
                         sh 'mvn clean package sonar:sonar'
-                    }
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
                 }
             }
         }
