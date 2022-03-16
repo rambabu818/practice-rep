@@ -3,8 +3,8 @@
 
   <modelVersion>4.0.0</modelVersion> 
 
-  <groupId>com.devops-mentors</groupId>
-  <artifactId>javaproject</artifactId>
+  <groupId>com.example.maven-project</groupId>
+  <artifactId>mavenproject</artifactId>
   <packaging>pom</packaging>
   <version>1.0</version>
   <name>Maven Project</name>
