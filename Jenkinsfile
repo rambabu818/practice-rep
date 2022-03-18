@@ -10,7 +10,7 @@ pipeline {
         
         stage('get source code') {
             steps {
-                                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+                                git 'https://github.com/rambabu818/practice-rep.git'
  
             }
         }
