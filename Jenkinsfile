@@ -25,7 +25,7 @@ pipeline{
                 branch 'main'
             }
             steps{
-            "mvn sonar:sonar"
+            "mvn clean sonar:sonar"
               }
         }
         stage("Upload to Nexus"){
