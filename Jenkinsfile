@@ -25,10 +25,10 @@ pipeline{
                 branch 'main'
             }
             steps{
-            mvn sonar:sonar \
+            "mvn sonar:sonar \
             -Dsonar.projectKey=javaprroject \
             -Dsonar.host.url=http://54.145.60.38:9000 \
-            -Dsonar.login=newtoken
+            -Dsonar.login=newtoken"
               }
         }
         stage("Upload to Nexus"){
