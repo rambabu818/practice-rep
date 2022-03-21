@@ -1,9 +1,9 @@
 pipeline{
     agent any
-    tools {
-        maven 'maven'
-        jdk "java11"
-    }
+    // tools {
+    //     maven 'maven'
+    //     jdk "java11"
+    // }
     stages {
 
         stage("SCM"){
@@ -16,7 +16,8 @@ pipeline{
                 branch 'main'
             }
             steps{
-                sh "mvn clean package" 
+                def mvnHome = tool 'maven'
+                sh "'${mvnHome}/bin/mvn' clean package" 
             }
         }
 
@@ -25,7 +26,9 @@ pipeline{
                 branch 'main'
             }
             steps{
-           sh "mvn sonar:sonar \
+            def mvnHome = tool 'maven'
+
+           sh "'${mvnHome}/bin/mvn' sonar:sonar \
             -Dsonar.projectKey=javaprroject \
             -Dsonar.host.url=http://54.145.60.38:9000 \
             -Dsonar.login=newtoken"
