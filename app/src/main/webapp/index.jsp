@@ -65,10 +65,10 @@
 
 <form action="/">
 	<label for="fname">First name:</label><br>
-	<input type="text" id="fname" name="fname" value="John"><br>
+	<input type="text" id="fname" name="fname" ><br>
 	<label for="lname">Last name:</label><br>
-	<input type="text" id="lname" name="lname" value="Doe"><br><br>
-	<input type="submit" value="Submit">
+	<input type="text" id="lname" name="lname" ><br><br>
+	<input type="submit" value="Submit" id="submit">
   </form> 
   
 <!-- END SHOWCASE -->
