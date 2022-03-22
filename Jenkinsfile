@@ -25,7 +25,7 @@ pipeline{
            sh "mvn sonar:sonar \
   -Dsonar.projectKey=newproject \
   -Dsonar.host.url=http://54.145.60.38:9000 \
-  -Dsonar.login=e11192779c15acb4f5a7c8a0199c8d6c2c55f82f"
+  -Dsonar.login=sonaserver_key"
               }
         }
         stage("Upload to Nexus"){
