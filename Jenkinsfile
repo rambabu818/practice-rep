@@ -41,8 +41,8 @@ pipeline{
                 branch 'main'
             }
             steps{
-                sh 'wget --user=admin --password=admin@123 http://54.167.54.248:8081/repository/javanexusrepo/com/devops-mentors/javaproject/${POM_VERSION}/${POM_ARTIFACTID}-${POM_VERSION}.war'
-               deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: '', url: 'http://3.87.82.133:8080/')], contextPath: null, war: '**/*.war'
+                sh 'wget --user=admin --password=admin@123 http://54.234.40.160:8081/repository/javanexusrepo/com/devops-mentors/javaproject/${POM_VERSION}/${POM_ARTIFACTID}-${POM_VERSION}.war'
+               deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: '', url: 'http://18.207.120.230:8080/')], contextPath: null, war: '**/*.war'
             }
         }
         

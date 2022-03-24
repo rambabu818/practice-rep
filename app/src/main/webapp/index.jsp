@@ -68,7 +68,7 @@
 	<input type="text" id="fname" name="fname" ><br>
 	<label for="lname">Last name:</label><br>
 	<input type="text" id="lname" name="lname" ><br><br>
-	<input type="submit" value="Submit" id="submit">
+	<input type="submit" value="Submit" id="submit" class="submitbutton">
   </form> 
   
 <!-- END SHOWCASE -->
