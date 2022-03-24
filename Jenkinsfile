@@ -41,8 +41,7 @@ pipeline{
             //     branch 'main'
             // }
             steps{
-                sh 'wget --user=admin --password=admin@123 http://54.234.40.160:8081/repository/javanexusrepo/com/devops-mentors/javaproject/1.32/javaproject-1.32.war'
-               deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: '', url: 'http://18.207.120.230:8080/')], contextPath: null, war: '/var/lib/jenkins/workspace/newpipeline/app/target/app.war'
+                sh "wget --user=admin --password=admin@123 http://54.234.40.160:8081/repository/javanexusrepo/com/devops-mentors/javaproject/1.32/javaproject-1.32.war"
             }
         }
         
@@ -51,8 +50,7 @@ pipeline{
             //     branch 'main'
             // }
             steps{
-                sh 'wget --user=admin --password=admin@123 http://54.234.40.160:8081/repository/javanexusrepo/com/devops-mentors/javaproject/1.32/javaproject-1.32.war'
-               deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: '', url: 'http://18.207.120.230:8080/')], contextPath: null, war: '/var/lib/jenkins/workspace/newpipeline/app/target/app.war'
+               deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: '', url: 'http://18.207.120.230:8080/')], contextPath: null, war: '**/*.war'
             }
         }
         
