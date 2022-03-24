@@ -11,14 +11,21 @@ pipeline{
             git branch: 'main', url: 'https://github.com/krishnabati/devopsmentor.git'   
                }
         }
-        stage("Maven Build"){
+         stage("Test"){
+           
+            steps{
+                sh "mvn clean test" 
+            }
+        }
+
+        stage("Build"){
            
             steps{
                 sh "mvn clean install" 
             }
         }
 
-        stage("Sonar Analysis"){
+        stage("Code Analysis"){
             
             steps{
                 
@@ -29,23 +36,19 @@ pipeline{
               }
         }
         stage("Upload to Nexus"){
-            // when {
-            //     branch 'main'
-            // }
+           
             steps{
-            nexusPublisher nexusInstanceId: 'javanexusrepo', nexusRepositoryId: 'javanexusrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/newpipeline/app/target/app.war']], mavenCoordinate: [artifactId: 'javaproject', groupId: 'com.devops-mentors', packaging: 'war', version: '1.33']]]            }
+            nexusPublisher nexusInstanceId: 'javanexusrepo', nexusRepositoryId: 'javanexusrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/newpipeline/app/target/app.war']], mavenCoordinate: [artifactId: 'javaproject', groupId: 'com.devops-mentors', packaging: 'war', version: '1.34']]]            }
         }
 
-        stage("Get Artifacte Server"){
-            // when {
-            //     branch 'main'
-            // }
+        stage("Pull Artifact"){
+           
             steps{
-                sh "wget --user=admin --password=admin@123 http://54.234.40.160:8081/repository/javanexusrepo/com/devops-mentors/javaproject/1.33/javaproject-1.33.war"
+                sh "wget --user=admin --password=admin@123 http://54.234.40.160:8081/repository/javanexusrepo/com/devops-mentors/javaproject/1.34/javaproject-1.34.war"
             }
         }
         
-          stage("deploy to tomcatserver"){
+          stage("deploy to Server"){
             // when {
             //     branch 'main'
             // }
