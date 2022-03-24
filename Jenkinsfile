@@ -36,7 +36,17 @@ pipeline{
             nexusPublisher nexusInstanceId: 'javanexusrepo', nexusRepositoryId: 'javanexusrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/newpipeline/app/target/app.war']], mavenCoordinate: [artifactId: 'javaproject', groupId: 'com.devops-mentors', packaging: 'war', version: '1.32']]]            }
         }
 
-        stage("Deploy to dev and test"){
+        stage("Get Artifacte Server"){
+            // when {
+            //     branch 'main'
+            // }
+            steps{
+                sh 'wget --user=admin --password=admin@123 http://54.234.40.160:8081/repository/javanexusrepo/com/devops-mentors/javaproject/1.32/javaproject-1.32.war'
+               deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: '', url: 'http://18.207.120.230:8080/')], contextPath: null, war: '/var/lib/jenkins/workspace/newpipeline/app/target/app.war'
+            }
+        }
+        
+          stage("deploy to tomcatserver"){
             // when {
             //     branch 'main'
             // }
