@@ -14,9 +14,9 @@ pipeline{
         ARTIFACTID="${pom.artifactId}"
         GROUPID="${pom.groupId}"
         VERSION="${pom.version}"
-        // NEXUS_USER="admin"
-        // NEXUS_PASSWORD="admin@123"
-        NEXUS_LOGINS=credentials('nexus_server_login_details')
+        NEXUS_USER="admin"
+        NEXUS_PASSWORD="admin@123"
+        // NEXUS_LOGINS=credentials('nexus_server_login_details')
         NEXUS_PROJECT_NAME="javanexusrepo"
         NEXUS_ARTIFACT_URL="http://54.83.109.151:8081/repository/${NEXUS_PROJECT_NAME}/com/${groupID}/${ARTIFACTID}/${pom.version}/${ARTIFACTID}-${pom.version}.war"
         NEXUS_ARTIFACT_FILE_PATH="app/target/app.war"
@@ -69,8 +69,8 @@ nexusPublisher nexusInstanceId: env.NEXUS_PROJECT_NAME, nexusRepositoryId: env.N
         stage("Pull Artifact"){
 
             steps{
-                // sh "wget --user=${NEXUS_USER} --password=${NEXUS_PASSWORD} ${NEXUS_ARTIFACT_URL}"
-                sh "wget ${NEXUS_LOGINS} ${NEXUS_ARTIFACT_URL}"
+                sh "wget --user=${NEXUS_USER} --password=${NEXUS_PASSWORD} ${NEXUS_ARTIFACT_URL}"
+                // sh "wget ${NEXUS_LOGINS} ${NEXUS_ARTIFACT_URL}"
 
                 
             }
