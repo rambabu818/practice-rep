@@ -6,14 +6,14 @@ pipeline{
     }   
     environment {
         def pom = readMavenPom file: 'pom.xml'
-        pom_version_array = pom.groupId.split('.')
-        groupID=pom_version_array[1]
+        pom_version_array=pom.groupId.split('.')
+        groupID="${pom_version_array[1]}"
         SONAR_URL="http://54.209.51.175:9000"
         SONAR_LOGIN_KEY=credentials('Sonar_Project_token')
         SONAR_PROJECT="sonarproject"
-        ARTIFACTID=pom.artifactId
-        GROUPID=pom.groupId
-        VERSION=pom.version
+        ARTIFACTID="${pom.artifactId}"
+        GROUPID="${pom.groupId}"
+        VERSION="${pom.version}"
         // NEXUS_USER="admin"
         // NEXUS_PASSWORD="admin@123"
         NEXUS_LOGINS=credentials('nexus_server_login_details')
