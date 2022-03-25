@@ -6,7 +6,7 @@ pipeline{
     }
     stages {
 
-        stage("SCM"){
+        stage("pull SCM"){
             steps{
             git branch: 'main', url: 'https://github.com/krishnabati/devopsmentor.git'   
                }
@@ -25,7 +25,7 @@ pipeline{
             }
         }
 
-        stage("Code Analysis"){
+        stage("Code Analysis by Sonar"){
             
             steps{
                 
@@ -38,25 +38,21 @@ pipeline{
         stage("Upload to Nexus"){
            
             steps{
-            nexusPublisher nexusInstanceId: 'javanexusrepo', nexusRepositoryId: 'javanexusrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/newpipeline/app/target/app.war']], mavenCoordinate: [artifactId: 'javaproject', groupId: 'com.devops-mentors', packaging: 'war', version: '1.34']]]            }
+nexusPublisher nexusInstanceId: 'javanexusrepo', nexusRepositoryId: 'javanexusrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [], mavenCoordinate: [artifactId: 'javaproject', groupId: 'com.devops-mentors', packaging: 'war', version: '1.35']]]
         }
 
+        }
         stage("Pull Artifact"){
            
             steps{
-                sh "wget --user=admin --password=admin@123 http://54.234.40.160:8081/repository/javanexusrepo/com/devops-mentors/javaproject/1.34/javaproject-1.34.war"
+                sh "wget --user=admin --password=admin@123 http://18.212.203.160:8081/repository/javanexusrepo/com/devops-mentors/javaproject/1.35/javaproject-1.35.war"
             }
         }
         
           stage("deploy to Server"){
-            // when {
-            //     branch 'main'
-            // }
+           
             steps{
-               deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: '', url: 'http://18.207.120.230:8080/')], contextPath: null, war: '**/*.war'
-            }
+deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: '', url: 'http://54.175.5.117:8080/')], contextPath: null, war: '**/*.war'            }
         }
-        
-      
     }
 }
