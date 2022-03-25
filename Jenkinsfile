@@ -38,8 +38,7 @@ pipeline{
         stage("Upload to Nexus"){
            
             steps{
-nexusPublisher nexusInstanceId: 'javanexusrepo', nexusRepositoryId: 'javanexusrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [], mavenCoordinate: [artifactId: 'javaproject', groupId: 'com.devops-mentors', packaging: 'war', version: '1.35']]]
-        }
+nexusPublisher nexusInstanceId: 'javanexusrepo', nexusRepositoryId: 'javanexusrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/pipelinejob_using_jenkinsfile/app/target/app.war']], mavenCoordinate: [artifactId: 'javaproject', groupId: 'com.devops-mentors', packaging: 'war', version: '1.36']]]        }
 
         }
         stage("Pull Artifact"){
