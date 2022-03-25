@@ -63,7 +63,7 @@ pipeline{
         stage("Upload to Nexus"){
            
             steps{
-nexusPublisher nexusInstanceId: env.NEXUS_PROJECT_NAME, nexusRepositoryId: env.NEXUS_PROJECT_NAME, packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath:env.NEXUS_ARTIFACT_FILE_PATH]], mavenCoordinate: [artifactId: env.ARTIFACTID, groupId:env.GROUPID, packaging: 'war', version: env.ARTIFACTID]]]        }
+nexusPublisher nexusInstanceId: env.NEXUS_PROJECT_NAME, nexusRepositoryId: env.NEXUS_PROJECT_NAME, packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath:env.NEXUS_ARTIFACT_FILE_PATH]], mavenCoordinate: [artifactId: env.ARTIFACTID, groupId:env.GROUPID, packaging: 'war', version: env.VERSION]]]        }
 
         }
         stage("Pull Artifact"){
