@@ -8,7 +8,6 @@ pipeline{
         def pom = readMavenPom file: 'pom.xml'
         pom_version_array=pom.groupId.split('.')
         groupID="${pom_version_array[1]}"
-        echo groupID
         SONAR_URL="http://54.209.51.175:9000"
         SONAR_LOGIN_KEY=credentials('Sonar_Project_token')
         SONAR_PROJECT="sonarproject"
