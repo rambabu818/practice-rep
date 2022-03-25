@@ -69,9 +69,7 @@ nexusPublisher nexusInstanceId: env.NEXUS_PROJECT_NAME, nexusRepositoryId: env.N
         stage("Pull Artifact"){
 
             steps{
-                sh "wget ${NEXUS_ARTIFACT_URL}"
-                // sh "wget --user=${NEXUS_USER} --password=${NEXUS_PASSWORD} ${NEXUS_ARTIFACT_URL}"
-
+                sh "wget --user=${NEXUS_USER} --password=${NEXUS_PASSWORD} ${NEXUS_ARTIFACT_URL}"
                 // sh "wget ${NEXUS_LOGINS} ${NEXUS_ARTIFACT_URL}"
 
                 
