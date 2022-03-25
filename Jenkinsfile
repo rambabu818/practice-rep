@@ -3,7 +3,31 @@ pipeline{
     tools {
         maven 'maven'
         jdk "java11"
+    }   
+    environment {
+        def pom = readMavenPom file: 'pom.xml'
+        pom_version_array = pom.groupId.split('.')
+        groupID=pom_version_array[1]
+        SONAR_URL="http://54.209.51.175:9000"
+        SONAR_LOGIN_KEY=credentials('Sonar_Project_token')
+        SONAR_PROJECT="sonarproject"
+        ARTIFACTID=pom.artifactId
+        GROUPID=pom.groupId
+        VERSION=pom.version
+        // NEXUS_USER="admin"
+        // NEXUS_PASSWORD="admin@123"
+        NEXUS_LOGINS=credentials('nexus_server_login_details')
+        NEXUS_PROJECT_NAME="javanexusrepo"
+        NEXUS_ARTIFACT_URL="http://54.83.109.151:8081/repository/${NEXUS_PROJECT_NAME}/com/${groupID}/${ARTIFACTID}/${pom.version}/${ARTIFACTID}-${pom.version}.war"
+        NEXUS_ARTIFACT_FILE_PATH="app/target/app.war"
+        TOMCAT_URL="54.91.42.78:8080/"
+
+
+
     }
+    
+
+    
     stages {
 
         stage("pull SCM"){
@@ -11,47 +35,51 @@ pipeline{
             git branch: 'main', url: 'https://github.com/krishnabati/devopsmentor.git'   
                }
         }
-         stage("Test"){
+       
+        stage("Code Analysis by Sonar"){
+            
+            steps{
+      
+           sh "mvn sonar:sonar \
+  -Dsonar.projectKey=${SONAR_PROJECT} \
+  -Dsonar.host.url=${SONAR_URL} \
+  -Dsonar.login=${SONAR_LOGIN_KEY}"
+              }
+        }
+          stage("Test"){
            
             steps{
                 sh "mvn clean test" 
             }
         }
 
-        stage("Build"){
+          stage("Build"){
            
             steps{
                 sh "mvn clean install" 
             }
         }
 
-        stage("Code Analysis by Sonar"){
-            
-            steps{
-                
-           sh "mvn sonar:sonar \
-  -Dsonar.projectKey=newproject \
-  -Dsonar.host.url=http://54.90.55.79:9000 \
-  -Dsonar.login=e11192779c15acb4f5a7c8a0199c8d6c2c55f82f"
-              }
-        }
         stage("Upload to Nexus"){
            
             steps{
-nexusPublisher nexusInstanceId: 'javanexusrepo', nexusRepositoryId: 'javanexusrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/pipelinejob_using_jenkinsfile/app/target/app.war']], mavenCoordinate: [artifactId: 'javaproject', groupId: 'com.devops-mentors', packaging: 'war', version: '1.37']]]        }
+nexusPublisher nexusInstanceId: env.NEXUS_PROJECT_NAME, nexusRepositoryId: env.NEXUS_PROJECT_NAME, packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath:env.NEXUS_ARTIFACT_FILE_PATH]], mavenCoordinate: [artifactId: env.ARTIFACTID, groupId:env.GROUPID, packaging: 'war', version: env.ARTIFACTID]]]        }
 
         }
         stage("Pull Artifact"){
-           
+
             steps{
-                sh "wget --user=admin --password=admin@123 http://18.212.203.160:8081/repository/javanexusrepo/com/devops-mentors/javaproject/1.37/javaproject-1.37.war"
+                // sh "wget --user=${NEXUS_USER} --password=${NEXUS_PASSWORD} ${NEXUS_ARTIFACT_URL}"
+                sh "wget ${NEXUS_LOGINS} ${NEXUS_ARTIFACT_URL}"
+
+                
             }
         }
         
           stage("deploy to Server"){
            
             steps{
-deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: '', url: 'http://54.175.5.117:8080/')], contextPath: null, war: '**/*.war'            }
+deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: '', url: env.TOMCAT_URL )], contextPath: null, war: '**/*.war'}
         }
     }
 }
