@@ -36,16 +36,7 @@ pipeline{
                }
         }
        
-        stage("Code Analysis by Sonar"){
-            
-            steps{
-      
-           sh "mvn sonar:sonar \
-  -Dsonar.projectKey=${SONAR_PROJECT} \
-  -Dsonar.host.url=${SONAR_URL} \
-  -Dsonar.login=${SONAR_LOGIN_KEY}"
-              }
-        }
+       
           stage("Test"){
            
             steps{
@@ -59,7 +50,16 @@ pipeline{
                 sh "mvn clean install" 
             }
         }
-
+ stage("Code Analysis by Sonar"){
+            
+            steps{
+      
+           sh "mvn sonar:sonar \
+  -Dsonar.projectKey=${SONAR_PROJECT} \
+  -Dsonar.host.url=${SONAR_URL} \
+  -Dsonar.login=${SONAR_LOGIN_KEY}"
+              }
+        }
         stage("Upload to Nexus"){
            
             steps{
