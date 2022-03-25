@@ -6,7 +6,7 @@ pipeline{
     }   
     environment {
         def pom = readMavenPom file: 'pom.xml'
-        pom_version_array=pom.groupId.split('.')
+        pom_version_array=pom.groupId.split('com.')
         groupID="${pom_version_array[0]}"
         SONAR_URL="http://54.209.51.175:9000"
         SONAR_LOGIN_KEY=credentials('Sonar_Project_token')
