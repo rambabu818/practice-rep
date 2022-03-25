@@ -38,13 +38,13 @@ pipeline{
         stage("Upload to Nexus"){
            
             steps{
-nexusPublisher nexusInstanceId: 'javanexusrepo', nexusRepositoryId: 'javanexusrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/pipelinejob_using_jenkinsfile/app/target/app.war']], mavenCoordinate: [artifactId: 'javaproject', groupId: 'com.devops-mentors', packaging: 'war', version: '1.36']]]        }
+nexusPublisher nexusInstanceId: 'javanexusrepo', nexusRepositoryId: 'javanexusrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/pipelinejob_using_jenkinsfile/app/target/app.war']], mavenCoordinate: [artifactId: 'javaproject', groupId: 'com.devops-mentors', packaging: 'war', version: '1.37']]]        }
 
         }
         stage("Pull Artifact"){
            
             steps{
-                sh "wget --user=admin --password=admin@123 http://18.212.203.160:8081/repository/javanexusrepo/com/devops-mentors/javaproject/1.35/javaproject-1.35.war"
+                sh "wget --user=admin --password=admin@123 http://18.212.203.160:8081/repository/javanexusrepo/com/devops-mentors/javaproject/1.37/javaproject-1.37.war"
             }
         }
         
