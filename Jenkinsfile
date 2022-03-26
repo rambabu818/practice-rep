@@ -85,7 +85,7 @@ pipeline{
         maven 'mymaven'
         jdk "mywindowjava"
     } 
-            agent { label 'window​' }
+            agent { label 'window slavw​' }
             steps{
             git branch: 'master', url: 'https://github.com/krishnabati/devopsmentor.git'   
             sh "mvn test"
