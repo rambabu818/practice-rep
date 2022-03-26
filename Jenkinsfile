@@ -7,22 +7,19 @@ pipeline{
     environment {
         def pom = readMavenPom file: 'pom.xml'
         pom_version_array=pom.groupId.split('com.')
-        groupID="${pom_version_array[1]}"
-        SONAR_URL="http://54.209.51.175:9000"
+        groupID="${pom_version_array[1]}" // devops-mentor
+        SONAR_URL=credentials('SONAR_IP') //"http://54.209.51.175:9000"
         SONAR_LOGIN_KEY=credentials('Sonar_Project_token')
         SONAR_PROJECT="sonarproject"
         ARTIFACTID="${pom.artifactId}"
-        GROUPID="${pom.groupId}"
+        GROUPID="${pom.groupId}" //com.devops-mentor
         VERSION="${pom.version}"
         NEXUS_USER=credentials('NEXUS_USER') 
         NEXUS_PASSWORD= credentials('NEXUS_PASSWORD') 
         NEXUS_PROJECT_NAME="javanexusrepo"
-        NEXUS_ARTIFACT_URL="http://54.83.109.151:8081/repository/${NEXUS_PROJECT_NAME}/com/${groupID}/${ARTIFACTID}/${pom.version}/${ARTIFACTID}-${pom.version}.war"
+        NEXUS_ARTIFACT_URL="http://54.146.218.126:8081/repository/${NEXUS_PROJECT_NAME}/com/${groupID}/${ARTIFACTID}/${VERSION}/${ARTIFACTID}-${VERSION}.war"
         NEXUS_ARTIFACT_FILE_PATH="app/target/app.war"
-        TOMCAT_URL="http://54.91.42.78:8080/"
-
-
-
+        TOMCAT_URL="http://54.158.9.87:8080/"
     }
     
 
@@ -69,8 +66,6 @@ nexusPublisher nexusInstanceId: env.NEXUS_PROJECT_NAME, nexusRepositoryId: env.N
 
             steps{
                 sh "wget --user=${NEXUS_USER} --password=${NEXUS_PASSWORD} ${NEXUS_ARTIFACT_URL}"
-                // sh "wget ${NEXUS_LOGINS} ${NEXUS_ARTIFACT_URL}"
-
                 
             }
         }
