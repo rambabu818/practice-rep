@@ -3,29 +3,20 @@ pipeline {
 
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
-        maven "maven"
-
+        maven "M3"
     }
 
     stages {
-        
-        stage('get source code') {
-            steps {
-                                git 'https://github.com/rambabu818/practice-rep.git'
- 
-            }
-        }
-       
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
+                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
 
                 // Run Maven on a Unix agent.
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
-                // sa
             }
 
             post {
