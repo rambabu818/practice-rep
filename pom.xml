@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion> 
 
   <groupId>com.devops-mentors</groupId>
-  <artifactId>DynamicJavaProject</artifactId>
+  <artifactId>Dynamic JavaProject</artifactId>
   <packaging>pom</packaging>
   <version>2.0</version>
   <name>Maven Project</name>
