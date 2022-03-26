@@ -81,6 +81,10 @@ pipeline{
 
 
      stage("Selenium Test"){
+         tools {
+        maven 'mymaven'
+        jdk "mywindowjava"
+    } 
             agent { label 'window​' }
             steps{
             git branch: 'master', url: 'https://github.com/krishnabati/devopsmentor.git'   
