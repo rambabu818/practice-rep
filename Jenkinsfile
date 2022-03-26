@@ -74,7 +74,17 @@ nexusPublisher nexusInstanceId: env.NEXUS_PROJECT_NAME, nexusRepositoryId: env.N
           stage("deploy to Server"){
            
             steps{
-deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: '', url: env.TOMCAT_URL )], contextPath: null, war: '**/*.war'}
+deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: '', url: env.TOMCAT_URL )], contextPath: null, war: '**/*.war'
+
+}
+        }
+
+
+     stage("Selenium Test"){
+            agent { label 'window​' }
+            steps{
+            git branch: 'master', url: 'https://github.com/krishnabati/devopsmentor.git'   
+            sh "mvn test"
         }
     }
 }
