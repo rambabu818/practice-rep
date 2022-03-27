@@ -86,24 +86,19 @@ pipeline{
      stage("Selenium Test"){
 
 
-     steps {
-                node( agentLabel as String ) {  // Evaluate the node label later
-                    echo "TEST"
-        }
-
-     }
+     
                 
-    // agent {
-    //             label "window​slave"
-    //         }
+    agent {
+                label "windowslave"
+            }
     //             tools {
     //     maven 'mymaven'
     //     jdk "mywindowjava"
     // } 
-    //         when {
-    //             beforeAgent true
-    //             branch 'master'
-    //         }
+            when {
+                beforeAgent true
+                branch 'master'
+            }
 
     //         steps{
     //         git branch: 'master', url: 'https://github.com/krishnabati/selinumproject.git'   
