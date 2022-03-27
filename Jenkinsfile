@@ -25,7 +25,7 @@ pipeline{
     
 
     
-    // stages {
+     stages {
 
     //     stage("pull SCM"){
     //         steps{
