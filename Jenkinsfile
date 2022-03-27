@@ -1,5 +1,3 @@
-agentName = "window​"
-agentLabel = "${-> println 'Right Now the Agent Name is ' + agentName; return agentName}"
 
 pipeline{
     agent none
