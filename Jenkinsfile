@@ -1,4 +1,4 @@
-agentName = "window​slave"
+agentName = "window​"
 agentLabel = "${-> println 'Right Now the Agent Name is ' + agentName; return agentName}"
 
 pipeline{
@@ -92,11 +92,7 @@ pipeline{
         }
 
      }
-                     script {
-                    println agentLabel
-                    println agentName
-                }
-
+                
     // agent {
     //             label "window​slave"
     //         }
