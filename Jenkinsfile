@@ -1,37 +1,37 @@
 pipeline{
-    agent any
-    tools {
-        maven 'maven'
-        jdk "java11"
-    }   
-    environment {
-        def pom = readMavenPom file: 'pom.xml'
+    // agent any
+    // tools {
+    //     maven 'maven'
+    //     jdk "java11"
+    // }   
+    // environment {
+    //     def pom = readMavenPom file: 'pom.xml'
 
-        pom_version_array=pom.groupId.split('com.')
-        groupID="${pom_version_array[1]}" // devops-mentor
-        SONAR_URL=credentials('SONAR_IP') //"http://54.209.51.175:9000"
-        SONAR_LOGIN_KEY=credentials('Sonar_Project_token')
-        SONAR_PROJECT="sonarproject"
-        ARTIFACTID="${pom.artifactId}"
-        GROUPID="${pom.groupId}" //com.devops-mentor
-        VERSION="${pom.version}"
-        NEXUS_USER=credentials('NEXUS_USER') 
-        NEXUS_PASSWORD= credentials('NEXUS_PASSWORD') 
-        NEXUS_PROJECT_NAME="javanexusrepo"
-        NEXUS_ARTIFACT_URL="http://54.146.218.126:8081/repository/${NEXUS_PROJECT_NAME}/${groupID}/${ARTIFACTID}/${VERSION}/${ARTIFACTID}-${VERSION}.war"
-        NEXUS_ARTIFACT_FILE_PATH="app/target/app.war"
-        TOMCAT_URL="http://54.158.9.87:8080/"
-    }
+    //     pom_version_array=pom.groupId.split('com.')
+    //     groupID="${pom_version_array[1]}" // devops-mentor
+    //     SONAR_URL=credentials('SONAR_IP') //"http://54.209.51.175:9000"
+    //     SONAR_LOGIN_KEY=credentials('Sonar_Project_token')
+    //     SONAR_PROJECT="sonarproject"
+    //     ARTIFACTID="${pom.artifactId}"
+    //     GROUPID="${pom.groupId}" //com.devops-mentor
+    //     VERSION="${pom.version}"
+    //     NEXUS_USER=credentials('NEXUS_USER') 
+    //     NEXUS_PASSWORD= credentials('NEXUS_PASSWORD') 
+    //     NEXUS_PROJECT_NAME="javanexusrepo"
+    //     NEXUS_ARTIFACT_URL="http://54.146.218.126:8081/repository/${NEXUS_PROJECT_NAME}/${groupID}/${ARTIFACTID}/${VERSION}/${ARTIFACTID}-${VERSION}.war"
+    //     NEXUS_ARTIFACT_FILE_PATH="app/target/app.war"
+    //     TOMCAT_URL="http://54.158.9.87:8080/"
+    // }
     
 
     
-    stages {
+    // stages {
 
-        stage("pull SCM"){
-            steps{
-            git branch: 'main', url: 'https://github.com/krishnabati/devopsmentor.git'   
-               }
-        }
+    //     stage("pull SCM"){
+    //         steps{
+    //         git branch: 'main', url: 'https://github.com/krishnabati/devopsmentor.git'   
+    //            }
+    //     }
        
        
 //           stage("Test"){
@@ -85,7 +85,7 @@ pipeline{
         maven 'mymaven'
         jdk "mywindowjava"
     } 
-            agent { label 'window​' }
+            agent { label 'window​slave' }
             steps{
             git branch: 'master', url: 'https://github.com/krishnabati/devopsmentor.git'   
             sh "mvn test"
