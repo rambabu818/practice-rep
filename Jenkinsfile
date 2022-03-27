@@ -1,4 +1,3 @@
-
 pipeline{
     agent none
     // tools {
@@ -83,25 +82,17 @@ pipeline{
 
      stage("Selenium Test"){
 
+        agent { label 'windowslave​' }
 
-     
-                
-    agent {
-                label "windowslave"
-            }
-    //             tools {
-    //     maven 'mymaven'
-    //     jdk "mywindowjava"
-    // } 
-            when {
-                beforeAgent true
-                branch 'master'
-            }
-
-    //         steps{
-    //         git branch: 'master', url: 'https://github.com/krishnabati/selinumproject.git'   
-    //         sh "mvn test"
-    //     }
+         tools {
+        maven 'mymaven'
+        jdk "mywindowjava"
+    } 
+    
+            steps{
+            git branch: 'master', url: 'https://github.com/krishnabati/selinumproject.git'   
+            sh "mvn test"
+        }
     }
 }
 }
