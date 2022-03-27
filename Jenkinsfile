@@ -1,3 +1,6 @@
+agentName = "window​slave"
+agentLabel = "${-> println 'Right Now the Agent Name is ' + agentName; return agentName}"
+
 pipeline{
     agent none
     // tools {
@@ -83,24 +86,28 @@ pipeline{
      stage("Selenium Test"){
 
 
-     
-
-    agent {
-                label "window​slave"
-            }
-                tools {
-        maven 'mymaven'
-        jdk "mywindowjava"
-    } 
-            when {
-                beforeAgent true
-                branch 'master'
-            }
-
-            steps{
-            git branch: 'master', url: 'https://github.com/krishnabati/selinumproject.git'   
-            sh "mvn test"
+     steps {
+                node( agentLabel as String ) {  // Evaluate the node label later
+                    echo "TEST"
         }
+
+
+    // agent {
+    //             label "window​slave"
+    //         }
+    //             tools {
+    //     maven 'mymaven'
+    //     jdk "mywindowjava"
+    // } 
+    //         when {
+    //             beforeAgent true
+    //             branch 'master'
+    //         }
+
+    //         steps{
+    //         git branch: 'master', url: 'https://github.com/krishnabati/selinumproject.git'   
+    //         sh "mvn test"
+    //     }
     }
 }
 }
