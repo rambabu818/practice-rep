@@ -82,7 +82,7 @@ pipeline{
 
      stage("Selenium Test"){
 
-        agent { label 'window​slave' }
+        agent { label 'window​' }
 
          tools {
         maven 'mymaven'
