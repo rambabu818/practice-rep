@@ -89,7 +89,7 @@ pipeline{
         jdk "mywindowjava"
     } 
             steps{
-            git branch: 'master', url: 'https://github.com/krishnabati/devopsmentor.git'   
+            git branch: 'master', url: 'https://github.com/krishnabati/selinumproject.git'   
             sh "mvn test"
         }
     }
