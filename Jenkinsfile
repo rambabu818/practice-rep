@@ -82,12 +82,21 @@ pipeline{
 
      stage("Selenium Test"){
 
-        agent { label 'window​' }
 
-         tools {
+     
+
+    agent {
+                label "window​slave"
+            }
+                tools {
         maven 'mymaven'
         jdk "mywindowjava"
     } 
+            when {
+                beforeAgent true
+                branch 'master'
+            }
+
             steps{
             git branch: 'master', url: 'https://github.com/krishnabati/selinumproject.git'   
             sh "mvn test"
