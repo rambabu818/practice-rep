@@ -92,6 +92,11 @@ pipeline{
         }
 
      }
+                     script {
+                    println agentLabel
+                    println agentName
+                }
+
     // agent {
     //             label "window​slave"
     //         }
