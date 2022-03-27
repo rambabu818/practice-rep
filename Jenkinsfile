@@ -1,5 +1,5 @@
 pipeline{
-    // agent any
+    agent any
     // tools {
     //     maven 'maven'
     //     jdk "java11"
@@ -81,11 +81,13 @@ pipeline{
 
 
      stage("Selenium Test"){
+
+        agent { label 'window​slave' }
+
          tools {
         maven 'mymaven'
         jdk "mywindowjava"
     } 
-            agent { label 'window​slave' }
             steps{
             git branch: 'master', url: 'https://github.com/krishnabati/devopsmentor.git'   
             sh "mvn test"
