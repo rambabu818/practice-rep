@@ -1,5 +1,5 @@
 pipeline{
-    agent any
+    agent none
     tools {
         maven 'mymaven'
         // jdk "java11"
@@ -37,7 +37,10 @@ pipeline{
        
        
           stage("Test"){
-           
+                       agent {
+                label 'windowslave'
+            }
+
             steps{
                 bat "mvn clean test" 
             }
