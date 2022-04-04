@@ -1,13 +1,13 @@
 pipeline{
     agent none
-    tools {
-        maven 'mymaven'
-        // jdk "java11"
-        jdk "mywindowjava"
+    // tools {
+    //     maven 'mymaven'
+    //     // jdk "java11"
+    //     jdk "mywindowjava"
 
-    }   
-    environment {
-        def pom = readMavenPom file: 'pom.xml'
+    // }   
+    // environment {
+        // def pom = readMavenPom file: 'pom.xml'
 
         // pom_version_array=pom.groupId.split('com.')
         // groupID="${pom_version_array[1]}" // devops-mentor
@@ -22,7 +22,7 @@ pipeline{
         // NEXUS_PROJECT_NAME="javanexusrepo"
         // NEXUS_ARTIFACT_URL="http://23.20.52.36:8081/repository/${NEXUS_PROJECT_NAME}/${groupID}/${ARTIFACTID}/${VERSION}/${ARTIFACTID}-${VERSION}.war"
         // NEXUS_ARTIFACT_FILE_PATH="app/target/app.war"
-        TOMCAT_URL="http://54.160.164.82:8080/"
+        // TOMCAT_URL="http://54.160.164.82:8080/"
     }
     
 
