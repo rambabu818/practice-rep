@@ -23,7 +23,7 @@ pipeline{
         // NEXUS_ARTIFACT_URL="http://23.20.52.36:8081/repository/${NEXUS_PROJECT_NAME}/${groupID}/${ARTIFACTID}/${VERSION}/${ARTIFACTID}-${VERSION}.war"
         // NEXUS_ARTIFACT_FILE_PATH="app/target/app.war"
         // TOMCAT_URL="http://54.160.164.82:8080/"
-    }
+   // }
     
 
     
