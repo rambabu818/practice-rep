@@ -47,29 +47,29 @@ pipeline{
                 sh "mvn clean install" 
             }
         }
- stage("Code Analysis by Sonar"){
+//  stage("Code Analysis by Sonar"){
             
-            steps{
+//             steps{
       
-           sh "mvn sonar:sonar \
-  -Dsonar.projectKey=${SONAR_PROJECT} \
-  -Dsonar.host.url=${SONAR_URL} \
-  -Dsonar.login=${SONAR_LOGIN_KEY}"
-              }
-        }
-        stage("Upload to Nexus"){
+//            sh "mvn sonar:sonar \
+//   -Dsonar.projectKey=${SONAR_PROJECT} \
+//   -Dsonar.host.url=${SONAR_URL} \
+//   -Dsonar.login=${SONAR_LOGIN_KEY}"
+//               }
+//         }
+//         stage("Upload to Nexus"){
            
-            steps{
-nexusPublisher nexusInstanceId: env.NEXUS_PROJECT_NAME, nexusRepositoryId: env.NEXUS_PROJECT_NAME, packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath:env.NEXUS_ARTIFACT_FILE_PATH]], mavenCoordinate: [artifactId: env.ARTIFACTID, groupId:env.GROUPID, packaging: 'war', version: env.VERSION]]]        }
+//             steps{
+// nexusPublisher nexusInstanceId: env.NEXUS_PROJECT_NAME, nexusRepositoryId: env.NEXUS_PROJECT_NAME, packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath:env.NEXUS_ARTIFACT_FILE_PATH]], mavenCoordinate: [artifactId: env.ARTIFACTID, groupId:env.GROUPID, packaging: 'war', version: env.VERSION]]]        }
 
-        }
-        stage("Pull Artifact"){
+//         }
+//         stage("Pull Artifact"){
 
-            steps{
-                sh "wget --user=${NEXUS_USER} --password=${NEXUS_PASSWORD} ${NEXUS_ARTIFACT_URL}"
+//             steps{
+//                 sh "wget --user=${NEXUS_USER} --password=${NEXUS_PASSWORD} ${NEXUS_ARTIFACT_URL}"
                 
-            }
-        }
+//             }
+//         }
         
           stage("deploy to Server"){
            
@@ -79,6 +79,12 @@ deploy adapters: [tomcat9(credentialsId: 'tomactdeployer_logindetails', path: ''
 }
         }
 
+stage("Functional Testing"){
+
+    steps {
+        build quietPeriod: 15, job: 'selenium_jenkinsfile_test'
+    }
+}
 
 
 }
