@@ -30,8 +30,11 @@ pipeline{
     stages {
 
         stage("pull SCM"){
+              agent {
+                label 'windowslave'
+            }
             steps{
-            git branch: 'main', url: 'https://github.com/krishnabati/devopsmentor.git'   
+            git branch: 'main', url: 'https://github.com/krishnabati/selinumproject.git'   
                }
         }
        
