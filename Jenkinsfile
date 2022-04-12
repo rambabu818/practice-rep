@@ -1,14 +1,12 @@
 pipeline{
     agent any
-    tools {
-        maven 'maven'
-    }   
+    
     environment {
         def pom = readMavenPom file: 'pom.xml'
 
         pom_version_array=pom.groupId.split('com.')
         groupID="${pom_version_array[1]}" // devops-mentor
-        SONAR_URL=credentials('SONAR_IP') //"http://54.209.51.175:9000"
+        SONAR_URL=credentials('SONAR_IP') 
         SONAR_LOGIN_KEY=credentials('Sonar_Project_token')
         SONAR_PROJECT="sonarproject"
         ARTIFACTID="${pom.artifactId}"
