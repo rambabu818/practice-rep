@@ -4,7 +4,7 @@ pipeline{
 
           stage("Test"){
         agent {
-                label 'krishna_personal_system'
+                label 'Ram_personal_system'
             }
 
             steps{
