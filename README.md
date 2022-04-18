@@ -25,3 +25,6 @@ mv sonarube-* /opt/
 
 
 6.	chown -R sonaruser sonaruser /opt/sonarqube-x.x  
+
+
+this is sonar project
