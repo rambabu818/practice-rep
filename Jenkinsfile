@@ -4,7 +4,7 @@ pipeline{
 
           stage("Test"){
         agent {
-                label 'Ram_personal_system'
+                label 'java_project_label'
             }
 
             steps{
